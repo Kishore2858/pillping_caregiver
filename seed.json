@@ -1,0 +1,220 @@
+{
+  "patients": [
+    {
+      "id": "p1",
+      "name": "Ramesh Sharma",
+      "nickname": "Dad",
+      "age": 74,
+      "conditions": ["Hypertension", "Type 2 Diabetes", "Cardiac Care"],
+      "language": "en-IN",
+      "caregiver": {
+        "name": "Priya Sharma",
+        "relation": "Daughter",
+        "phone": "+91-98765-43210",
+        "email": "priya.sharma@example.com"
+      },
+      "medications": [
+        {
+          "id": "m101",
+          "name": "Amlodipine",
+          "dosage": "5mg",
+          "purpose": "Blood Pressure Pill",
+          "slot": "Morning",
+          "scheduledTime": "08:00",
+          "foodInstruction": "Take with Water (Before or After Breakfast)",
+          "pillColor": "#2563EB",
+          "pillShape": "round",
+          "pillBottleSVG": "blue",
+          "remainingPills": 18,
+          "status": "taken",
+          "takenAt": "08:04 AM"
+        },
+        {
+          "id": "m102",
+          "name": "Metformin",
+          "dosage": "500mg",
+          "purpose": "Blood Sugar Control",
+          "slot": "Morning",
+          "scheduledTime": "10:00",
+          "foodInstruction": "Take WITH Breakfast",
+          "pillColor": "#16A34A",
+          "pillShape": "oval",
+          "pillBottleSVG": "green",
+          "remainingPills": 4,
+          "status": "pending",
+          "takenAt": null
+        },
+        {
+          "id": "m103",
+          "name": "Aspirin",
+          "dosage": "75mg",
+          "purpose": "Heart Protection",
+          "slot": "Afternoon",
+          "scheduledTime": "14:00",
+          "foodInstruction": "Take AFTER Lunch",
+          "pillColor": "#DC2626",
+          "pillShape": "round",
+          "pillBottleSVG": "red",
+          "remainingPills": 22,
+          "status": "pending",
+          "takenAt": null
+        },
+        {
+          "id": "m104",
+          "name": "Atorvastatin",
+          "dosage": "10mg",
+          "purpose": "Cholesterol Control",
+          "slot": "Night",
+          "scheduledTime": "21:00",
+          "foodInstruction": "Take AFTER Dinner",
+          "pillColor": "#D97706",
+          "pillShape": "capsule",
+          "pillBottleSVG": "amber",
+          "remainingPills": 12,
+          "status": "pending",
+          "takenAt": null
+        }
+      ],
+      "adherenceHistory14Days": [
+        { "day": "Day 1", "date": "Nov 07", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 2", "date": "Nov 08", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 3", "date": "Nov 09", "taken": 3, "total": 4, "status": "partial" },
+        { "day": "Day 4", "date": "Nov 10", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 5", "date": "Nov 11", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 6", "date": "Nov 12", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 7", "date": "Nov 13", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 8", "date": "Nov 14", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 9", "date": "Nov 15", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 10", "date": "Nov 16", "taken": 3, "total": 4, "status": "partial" },
+        { "day": "Day 11", "date": "Nov 17", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 12", "date": "Nov 18", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 13", "date": "Nov 19", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 14", "date": "Nov 20", "taken": 1, "total": 4, "status": "today" }
+      ]
+    },
+    {
+      "id": "p2",
+      "name": "Lakshmi Nair",
+      "nickname": "Amma",
+      "age": 71,
+      "conditions": ["Hypertension", "Hypothyroidism", "Arthritis"],
+      "language": "en-IN",
+      "caregiver": {
+        "name": "Arjun Nair",
+        "relation": "Son",
+        "phone": "+91-98450-11223",
+        "email": "arjun.nair@example.com"
+      },
+      "medications": [
+        {
+          "id": "m201",
+          "name": "Levothyroxine",
+          "dosage": "50mcg",
+          "purpose": "Thyroid Balance",
+          "slot": "Morning",
+          "scheduledTime": "07:00",
+          "foodInstruction": "Empty Stomach (30 mins before tea)",
+          "pillColor": "#7C3AED",
+          "pillShape": "round",
+          "pillBottleSVG": "purple",
+          "remainingPills": 25,
+          "status": "taken",
+          "takenAt": "07:05 AM"
+        },
+        {
+          "id": "m202",
+          "name": "Telmisartan",
+          "dosage": "40mg",
+          "purpose": "Blood Pressure Control",
+          "slot": "Morning",
+          "scheduledTime": "09:30",
+          "foodInstruction": "Take AFTER Breakfast",
+          "pillColor": "#2563EB",
+          "pillShape": "oval",
+          "pillBottleSVG": "blue",
+          "remainingPills": 3,
+          "status": "missed",
+          "takenAt": null
+        },
+        {
+          "id": "m203",
+          "name": "Calcium + D3",
+          "dosage": "500mg",
+          "purpose": "Bone & Joint Strength",
+          "slot": "Afternoon",
+          "scheduledTime": "13:30",
+          "foodInstruction": "Take WITH Lunch",
+          "pillColor": "#059669",
+          "pillShape": "capsule",
+          "pillBottleSVG": "green",
+          "remainingPills": 16,
+          "status": "pending",
+          "takenAt": null
+        },
+        {
+          "id": "m204",
+          "name": "Pantoprazole",
+          "dosage": "40mg",
+          "purpose": "Acidity Protection",
+          "slot": "Night",
+          "scheduledTime": "20:00",
+          "foodInstruction": "Take 30 mins BEFORE Dinner",
+          "pillColor": "#EA580C",
+          "pillShape": "capsule",
+          "pillBottleSVG": "amber",
+          "remainingPills": 19,
+          "status": "pending",
+          "takenAt": null
+        }
+      ],
+      "adherenceHistory14Days": [
+        { "day": "Day 1", "date": "Nov 07", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 2", "date": "Nov 08", "taken": 3, "total": 4, "status": "partial" },
+        { "day": "Day 3", "date": "Nov 09", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 4", "date": "Nov 10", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 5", "date": "Nov 11", "taken": 2, "total": 4, "status": "missed" },
+        { "day": "Day 6", "date": "Nov 12", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 7", "date": "Nov 13", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 8", "date": "Nov 14", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 9", "date": "Nov 15", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 10", "date": "Nov 16", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 11", "date": "Nov 17", "taken": 3, "total": 4, "status": "partial" },
+        { "day": "Day 12", "date": "Nov 18", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 13", "date": "Nov 19", "taken": 4, "total": 4, "status": "complete" },
+        { "day": "Day 14", "date": "Nov 20", "taken": 1, "total": 4, "status": "today" }
+      ]
+    }
+  ],
+  "alerts": [
+    {
+      "id": "a1",
+      "patientId": "p1",
+      "patientName": "Ramesh Sharma (Dad)",
+      "type": "refill",
+      "severity": "warning",
+      "message": "Low Pill Inventory: Metformin 500mg has only 4 pills remaining. Order refill soon.",
+      "timestamp": "08:05 AM",
+      "resolved": false
+    },
+    {
+      "id": "a2",
+      "patientId": "p2",
+      "patientName": "Lakshmi Nair (Amma)",
+      "type": "missed",
+      "severity": "critical",
+      "message": "ESCALATION: Telmisartan 40mg (09:30 AM) unconfirmed >30 mins past scheduled time!",
+      "timestamp": "10:01 AM",
+      "resolved": false
+    },
+    {
+      "id": "a3",
+      "patientId": "p2",
+      "patientName": "Lakshmi Nair (Amma)",
+      "type": "refill",
+      "severity": "warning",
+      "message": "Low Pill Inventory: Telmisartan 40mg has only 3 pills left.",
+      "timestamp": "09:00 AM",
+      "resolved": false
+    }
+  ]
+}
