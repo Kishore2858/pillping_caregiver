@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PillPing: CareCircle — Senior Medication & Caregiver Sync</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Top Mode & Patient Switcher Bar -->
+  <header class="app-header" role="banner">
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">💊</span>
+      <div>
+        <h1>PillPing: CareCircle</h1>
+        <p class="subtitle">Senior-First Reminders & Live Caregiver Sync</p>
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <label for="patientSelect" class="sr-only">Select Patient Profile</label>
+      <select id="patientSelect" class="control-select" aria-label="Select Patient Profile">
+        <option value="p1">Ramesh Sharma (Dad, 74)</option>
+        <option value="p2">Lakshmi Nair (Amma, 71)</option>
+      </select>
+
+      <nav class="mode-tabs" role="tablist" aria-label="Application View Mode">
+        <button id="tabSenior" class="tab-btn active" role="tab" aria-selected="true" aria-controls="seniorView">
+          👴 Senior View
+        </button>
+        <button id="tabCaregiver" class="tab-btn" role="tab" aria-selected="false" aria-controls="caregiverView">
+          🩺 Caregiver Portal <span id="alertBadge" class="badge hidden">0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Live Sync Banner -->
+  <div id="syncStatusBar" class="sync-bar" role="status" aria-live="polite">
+    <span>🟢 Live CareCircle Sync Active</span>
+    <div class="demo-actions">
+      <button id="btnTriggerDemoAlarm" class="demo-btn">🔔 Simulate 10:00 AM Pill Alarm</button>
+      <button id="btnSimulateEscalation" class="demo-btn warn">⏰ Simulate 30m Missed Escalation</button>
+      <button id="btnResetDemo" class="demo-btn subtle">↺ Reset Demo</button>
+    </div>
+  </div>
+
+  <main id="mainContent">
+    <!-- ==================== SENIOR VIEW ==================== -->
+    <section id="seniorView" class="view-section active" role="tabpanel" aria-labelledby="tabSenior">
+      <!-- Greeting & Clock -->
+      <div class="senior-hero">
+        <div>
+          <h2 id="seniorGreeting">Good Morning, Dad!</h2>
+          <p id="seniorSubtext" class="hero-sub">Here are your medicines for today.</p>
+        </div>
+        <div class="clock-box" aria-label="Current Time">
+          <div id="liveClock" class="live-clock">10:00 AM</div>
+          <div id="liveDate" class="live-date">Friday, Nov 20</div>
+        </div>
+      </div>
+
+      <!-- Active Full-Screen / High-Priority Dose Reminder Card -->
+      <div id="activeReminderCard" class="reminder-spotlight" role="region" aria-label="Current Medication Reminder">
+        <div class="spotlight-header">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span id="spotlightTimeLabel">10:00 AM — DUE NOW</span>
+          <button id="btnSpeakReminder" class="voice-btn" aria-label="Read medication instructions aloud">
+            🔊 Read Aloud
+          </button>
+        </div>
+
+        <div class="spotlight-body">
+          <!-- Pill Bottle Visual Identifier -->
+          <div id="pillBottleVisual" class="bottle-card" aria-label="Pill bottle visual identifier">
+            <!-- SVG injected dynamically -->
+          </div>
+
+          <div class="med-details">
+            <div class="pill-tag" id="spotlightPurpose">Blood Sugar Control</div>
+            <h3 id="spotlightMedName">Metformin 500mg</h3>
+            <p id="spotlightInstruction" class="food-instruction">🍽️ Take WITH Breakfast</p>
+            <p id="spotlightRemaining" class="refill-note">Pills left in bottle: 4</p>
+          </div>
+        </div>
+
+        <!-- Extra-Large Tactile Buttons (>= 64px height for tremor/arthritis accessibility) -->
+        <div class="spotlight-actions">
+          <button id="btnConfirmDose" class="btn-senior btn-confirm">
+            ✅ I TOOK MY MEDICINE
+          </button>
+          <button id="btnSnoozeDose" class="btn-senior btn-snooze">
+            💤 SNOOZE 15 MINS
+          </button>
+        </div>
+      </div>
+
+      <!-- Calming Confirmation Feedback Banner -->
+      <div id="confirmationBanner" class="confirmation-banner hidden" role="alert">
+        <div class="confirm-icon">🎉</div>
+        <div>
+          <h3 id="confirmHeadline">Good Job, Dad!</h3>
+          <p id="confirmDetail">Your daughter Priya has been notified right away.</p>
+        </div>
+      </div>
+
+      <!-- Today's Full Schedule for Senior (with Retroactive 'Already Took It' option) -->
+      <div class="senior-schedule-section">
+        <h3>Today's Medicine List</h3>
+        <div id="seniorMedList" class="senior-med-grid">
+          <!-- Cards populated via JS -->
+        </div>
+      </div>
+
+      <!-- Prominent Emergency SOS Quick Dial -->
+      <div class="sos-container">
+        <button id="btnEmergencySOS" class="btn-sos" aria-label="Emergency SOS Call Caregiver">
+          🚨 EMERGENCY SOS — CALL <span id="sosCaregiverName">PRIYA</span> NOW
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== CAREGIVER PORTAL ==================== -->
+    <section id="caregiverView" class="view-section hidden" role="tabpanel" aria-labelledby="tabCaregiver">
+      <!-- Top KPI Summary Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <span class="kpi-label">14-Day Adherence Score</span>
+          <div class="kpi-value" id="kpiAdherenceScore">96%</div>
+          <span class="kpi-trend positive">On-time compliance</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Today's Doses</span>
+          <div class="kpi-value" id="kpiTodayDoses">1 / 4</div>
+          <span class="kpi-trend" id="kpiTodaySub">3 remaining today</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Active Escalations</span>
+          <div class="kpi-value alert-text" id="kpiActiveAlerts">1</div>
+          <span class="kpi-trend">Real-time alerts</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Low Refill Warnings</span>
+          <div class="kpi-value warn-text" id="kpiRefillCount">1</div>
+          <span class="kpi-trend">Below 5 pills remaining</span>
+        </div>
+      </div>
+
+      <div class="caregiver-main-grid">
+        <!-- Left Column: Live Alert Feed & Real-time Dose Status -->
+        <div class="cg-col">
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3>🚨 Caregiver Escalation & Activity Feed</h3>
+            </div>
+            <div id="caregiverAlertFeed" class="alert-feed">
+              <!-- Alerts populated via JS -->
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3>📋 Today's Live Medication Status</h3>
+            </div>
+            <div id="caregiverMedTable" class="cg-med-list">
+              <!-- Med status items -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: 14-Day Adherence Calendar & Medication Configurator -->
+        <div class="cg-col">
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3>📅 14-Day Compliance Calendar</h3>
+              <span class="legend">
+                <i class="dot complete"></i> All Taken
+                <i class="dot partial"></i> Partial
+                <i class="dot missed"></i> Missed
+              </span>
+            </div>
+            <div id="adherenceCalendar" class="calendar-grid">
+              <!-- Calendar dots injected via JS -->
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3>➕ Add / Configure Medication</h3>
+            </div>
+            <form id="addMedForm" class="med-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="medName">Medicine Name</label>
+                  <input type="text" id="medName" placeholder="e.g., Ecosprin 75mg" required />
+                </div>
+                <div class="form-group">
+                  <label for="medDosage">Dosage</label>
+                  <input type="text" id="medDosage" placeholder="e.g., 1 Tablet" required />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="medPurpose">Condition / Label</label>
+                  <input type="text" id="medPurpose" placeholder="e.g., Heart Care" required />
+                </div>
+                <div class="form-group">
+                  <label for="medSlot">Time Slot</label>
+                  <select id="medSlot">
+                    <option value="Morning">Morning</option>
+                    <option value="Afternoon">Afternoon</option>
+                    <option value="Night">Night</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="medTime">Scheduled Time</label>
+                  <input type="time" id="medTime" value="09:00" required />
+                </div>
+                <div class="form-group">
+                  <label for="medRefills">Pill Inventory Count</label>
+                  <input type="number" id="medRefills" value="15" min="1" max="120" required />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="medFood">Food Instruction</label>
+                  <select id="medFood">
+                    <option value="Take WITH Breakfast">Take WITH Breakfast</option>
+                    <option value="Take AFTER Lunch">Take AFTER Lunch</option>
+                    <option value="Take AFTER Dinner">Take AFTER Dinner</option>
+                    <option value="Take on Empty Stomach">Take on Empty Stomach</option>
+                    <option value="Take with Water">Take with Water</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="medColor">Pill Color Code</label>
+                  <select id="medColor">
+                    <option value="#2563EB">Blue (BP / Cardiac)</option>
+                    <option value="#16A34A">Green (Diabetes / Sugar)</option>
+                    <option value="#DC2626">Red (Blood Thinner)</option>
+                    <option value="#D97706">Amber (Cholesterol)</option>
+                    <option value="#7C3AED">Purple (Thyroid)</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-primary-full">Save Medication to Senior Schedule</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Emergency SOS Modal -->
+  <div id="sosModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="sosModalTitle">
+    <div class="modal-box sos-modal-box">
+      <h2 id="sosModalTitle">🚨 EMERGENCY ALERT SENT!</h2>
+      <p id="sosModalBody">Calling Priya Sharma (+91-98765-43210) and notifying CareCircle...</p>
+      <div class="sos-number-display" id="sosPhoneDisplay">+91-98765-43210</div>
+      <button id="btnCloseSos" class="btn-senior btn-confirm">I AM OKAY — CLOSE ALERT</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
